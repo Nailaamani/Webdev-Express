@@ -44,6 +44,18 @@ exports.findAll = (req, res) => {
     });
 };
 
+// Retrieve and return all article Data from the database.
+exports.findAllAsync = async (req, res) => {
+    Data.find()
+    .then(datas => {
+        res.send(datas);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving Data."
+        });
+    });
+};
+
 // Find a single Data article with a articleId
 exports.findOne = (req, res) => {
     Data.findById(req.params.dataId)
