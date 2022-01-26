@@ -46,14 +46,15 @@ exports.findAll = (req, res) => {
 
 // Retrieve and return all article Data from the database.
 exports.findAllAsync = async (req, res) => {
-    Data.find()
-    .then(datas => {
-        res.send(datas);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Data."
-        });
-    });
+    try{
+        const results = await Data.find()
+        if (!results){
+            res.send({message:"There is no Data."})
+        } else
+        res.send({results})
+    } catch(error){
+        res.send({message:"Error retrieving data"})
+    }
 };
 
 // Find a single Data article with a articleId
